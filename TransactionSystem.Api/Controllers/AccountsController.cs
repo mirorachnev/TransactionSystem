@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TransactionSystem.Api.Repositories;
+using TransactionSystem.Api.Repositories.Models;
 
 namespace TransactionSystem.Api.Controllers
 {
@@ -7,11 +9,32 @@ namespace TransactionSystem.Api.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        private readonly IAccountsRepository _accountsRepository;
+        
+        public AccountsController(IAccountsRepository accountsRepository) 
+        {
+            _accountsRepository = accountsRepository;
+        }
+
         [HttpGet]
-        public IActionResult GetAccounts()
+        public async Task<IActionResult> GetAccountsAsync()
         {
             // Placeholder for getting accounts logic
-            return Ok(new[] { "Account1", "Account2", "Hello World" });
+            return Ok(await _accountsRepository.GetAllAccountsAsync());
+        }
+
+        [HttpPost("/{accountId}")]
+        public async Task<IActionResult> CreateAccountAsync([FromBody] AccountData accountData)
+        {
+            // Placeholder for creating an account logic
+            
+            var result = await _accountsRepository.AddAccountAsync(accountData);
+            if (!result)
+            {
+                return BadRequest("Could not create account."); ;
+            }
+
+            return Ok(accountData);
         }
     }
 }
