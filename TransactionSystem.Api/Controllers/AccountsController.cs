@@ -60,7 +60,7 @@ namespace TransactionSystem.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("{accountId}/deposit")]
+        [HttpPut("deposit/{accountId}")]
         public async Task<ActionResult> DepositMoneyAsync(string accountId, decimal amount)
         { 
             if (amount <= 0)
@@ -76,7 +76,7 @@ namespace TransactionSystem.Api.Controllers
             return Ok();
         }
 
-        [HttpPut("{accountId}/withdraw")]
+        [HttpPut("withdraw/{accountId}")]
         public async Task<ActionResult> WithdrawMoneyAsync(string accountId, decimal amount)
         {
             if (amount <= 0)
@@ -89,6 +89,24 @@ namespace TransactionSystem.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Withdraw from account with id {accountId} failed");
             }
 
+            return Ok();
+        }
+
+        [HttpPut("transfer/{fromAccountId}/{toAccountId}")]
+        public async Task<ActionResult> TransferMoneyAsync(string fromAccountId, string toAccountId, decimal amount)
+        {
+            if (amount <= 0)
+                return BadRequest("Transfer amount must be positive");
+            
+            if (fromAccountId == toAccountId)
+                return BadRequest("Cannot transfer to the same account");
+
+            var result = await _accountsRepository.TransferMoneyAsync(fromAccountId, toAccountId, amount);
+            if (!result)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Transfer from account with id {fromAccountId} to account with id {toAccountId} failed");
+            }
+            
             return Ok();
         }
     }
