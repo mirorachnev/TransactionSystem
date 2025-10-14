@@ -66,6 +66,9 @@ namespace TransactionSystem.Api.Repositories
         {
             if (_accountsRepository.TryGetValue(accountId, out var accountData))
             {
+                if (amount > accountData.Balance)
+                    return await Task.FromResult(false);
+
                 accountData.Balance -= amount;
                 return await Task.FromResult(true);
             }

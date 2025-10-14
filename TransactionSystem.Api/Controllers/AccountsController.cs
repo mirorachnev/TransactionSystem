@@ -59,5 +59,37 @@ namespace TransactionSystem.Api.Controllers
             
             return Ok();
         }
+
+        [HttpPut("{accountId}/deposit")]
+        public async Task<ActionResult> DepositMoneyAsync(string accountId, decimal amount)
+        { 
+            if (amount <= 0)
+                return BadRequest("Deposit amount must be positive");
+
+            var result = await _accountsRepository.DepositMoneyAsync(accountId, amount);
+
+            if (!result)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Deposit to account with id {accountId} failed");
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{accountId}/withdraw")]
+        public async Task<ActionResult> WithdrawMoneyAsync(string accountId, decimal amount)
+        {
+            if (amount <= 0)
+                return BadRequest("Withdraw amount must be positive");
+
+            var result = await _accountsRepository.WithdrawMoneyAsync(accountId, amount);
+
+            if (!result)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Withdraw from account with id {accountId} failed");
+            }
+
+            return Ok();
+        }
     }
 }
