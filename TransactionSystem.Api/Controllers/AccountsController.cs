@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TransactionSystem.Api.Repositories;
 using TransactionSystem.Api.Repositories.Models;
 
@@ -17,24 +16,48 @@ namespace TransactionSystem.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAccountsAsync()
+        public async Task<ActionResult<IEnumerable<AccountData>>> GetAllAccountsAsync()
         {
-            // Placeholder for getting accounts logic
             return Ok(await _accountsRepository.GetAllAccountsAsync());
         }
 
-        [HttpPost("/{accountId}")]
-        public async Task<IActionResult> CreateAccountAsync([FromBody] AccountData accountData)
+        [HttpGet("{accountId}")]
+        public async Task<ActionResult<AccountData>> GetAccountByIdAsync(string accountId)
         {
-            // Placeholder for creating an account logic
+            var result = await _accountsRepository.GetAccountByIdAsync(accountId);
+
+            if (result == null)
+                return NotFound();
             
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<AccountData>> CreateAccountAsync([FromBody] AccountData accountData)
+        {
+            if (accountData.Balance < 0)
+                return BadRequest("Initial balance cannot be negative");
+
             var result = await _accountsRepository.AddAccountAsync(accountData);
             if (!result)
             {
-                return BadRequest("Could not create account."); ;
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Account with id {accountData.AccountId} cannot be created");
             }
 
             return Ok(accountData);
+        }
+
+        [HttpDelete("{accountId}")] 
+        public async Task<ActionResult> RemoveAccountAsync(string accountId)
+        {
+            var result = await _accountsRepository.RemoveAccountAsync(accountId);
+
+            if (!result)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Account with id {accountId} cannot be deleted");
+            }
+            
+            return Ok();
         }
     }
 }
