@@ -143,55 +143,133 @@ namespace TransactionSystem.Api.Tests.Unit.Controllers
         [Fact]
         public async Task DepositMoneyAsyncOkTest()
         {
+            var amount = 100;
+            var account = "test";
+            _accountsRepositoryMock.Setup(repo => repo.DepositMoneyAsync(account, amount))
+                .ReturnsAsync(true);
 
+            var result = await _accountsController.DepositMoneyAsync(account, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public async Task DepositMoneyAsyncNotFoundTest()
+        public async Task DepositMoneyAsyncErrorTest()
         {
+            var amount = 100;
+            var account = "test";
+            _accountsRepositoryMock.Setup(repo => repo.DepositMoneyAsync(account, amount))
+                .ReturnsAsync(false);
 
+            var result = await _accountsController.DepositMoneyAsync(account, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(500);
         }
 
         [Fact]
         public async Task DepositMoneyAsyncNegativeAmountTest()
         {
+            var amount = -100;
+            var account = "test";
+            
+            var result = await _accountsController.DepositMoneyAsync(account, amount);
 
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(400);
         }
 
         [Fact]
         public async Task WithdrawMoneyAsyncOkTest()
         {
+            var amount = 100;
+            var account = "test";
+            _accountsRepositoryMock.Setup(repo => repo.WithdrawMoneyAsync(account, amount))
+                .ReturnsAsync(true);
 
+            var result = await _accountsController.WithdrawMoneyAsync(account, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public async Task WithdrawMoneyAsyncNotFoundTest()
+        public async Task WithdrawMoneyAsyncErrorTest()
         {
+            var amount = 100;
+            var account = "test";
+            _accountsRepositoryMock.Setup(repo => repo.WithdrawMoneyAsync(account, amount))
+                .ReturnsAsync(false);
 
+            var result = await _accountsController.WithdrawMoneyAsync(account, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(500);
         }
 
         [Fact]
         public async Task WithdrawMoneyAsyncNegativeAmountTest()
         {
+            var amount = -100;
+            var account = "test";
 
+            var result = await _accountsController.WithdrawMoneyAsync(account, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(400);
         }
 
         [Fact]
         public async Task TransferMoneyAsyncOkTest()
         {
+            var amount = 100;
+            var account1 = "test1";
+            var account2 = "test2";
+            _accountsRepositoryMock.Setup(repo => repo.TransferMoneyAsync(account1, account2, amount))
+                .ReturnsAsync(true);
 
+            var result = await _accountsController.TransferMoneyAsync(account1, account2, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public async Task TransferMoneyAsyncNotFoundTest()
+        public async Task TransferMoneyAsyncErrorTest()
         {
+            var amount = 100;
+            var account1 = "test1";
+            var account2 = "test2";
+            _accountsRepositoryMock.Setup(repo => repo.TransferMoneyAsync(account1, account2, amount))
+                .ReturnsAsync(false);
 
+            var result = await _accountsController.TransferMoneyAsync(account1, account2, amount);
+
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(500);
         }
 
         [Fact]
         public async Task TransferMoneyAsyncNegativeAmountTest()
         {
+            var amount = -100;
+            var account1 = "test1";
+            var account2 = "test2";
+            
+            var result = await _accountsController.TransferMoneyAsync(account1, account2, amount);
 
+            result.Should().NotBeNull();
+            var objectResult = result as ObjectResult;
+            objectResult?.StatusCode.Should().Be(400);
         }
     }
 }
