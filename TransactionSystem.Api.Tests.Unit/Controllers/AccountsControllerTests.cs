@@ -130,7 +130,7 @@ namespace TransactionSystem.Api.Tests.Unit.Controllers
         }
 
         [Fact]
-        public async Task RemoveAccountAsyncNotFoundTest()
+        public async Task RemoveAccountAsyncErrorTest()
         {
             _accountsRepositoryMock.Setup(repo => repo.RemoveAccountAsync("nonexistent"))
                 .ReturnsAsync(false);
