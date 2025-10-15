@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TransactionSystem.Api\TransactionSystem.Api.csproj" />
+    <ProjectReference Include="..\TransactionSystem.DataAccess\TransactionSystem.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

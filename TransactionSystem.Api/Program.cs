@@ -1,5 +1,5 @@
 
-using TransactionSystem.Api.Repositories;
+using TransactionSystem.DataAccess.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

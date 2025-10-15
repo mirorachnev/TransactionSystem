@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using TransactionSystem.Api.Controllers;
-using TransactionSystem.Api.Repositories;
-using TransactionSystem.Api.Repositories.Models;
+using TransactionSystem.DataAccess.Repositories;
+using TransactionSystem.DataAccess.Repositories.Models;
 
 namespace TransactionSystem.Api.Tests.Unit.Controllers
 {

@@ -1,6 +1,6 @@
-﻿using TransactionSystem.Api.Repositories.Models;
+﻿using TransactionSystem.DataAccess.Repositories.Models;
 
-namespace TransactionSystem.Api.Repositories
+namespace TransactionSystem.DataAccess.Repositories
 {
     /// <summary>
     /// Provides an in-memory implementation of the <see cref="IAccountsRepository"/> interface for managing account

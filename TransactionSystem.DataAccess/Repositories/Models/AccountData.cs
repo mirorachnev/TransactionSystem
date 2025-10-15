@@ -1,4 +1,4 @@
-﻿namespace TransactionSystem.Api.Repositories.Models
+﻿namespace TransactionSystem.DataAccess.Repositories.Models
 {
     /// <summary>
     /// Represents account information, including the account identifier, name, and balance.

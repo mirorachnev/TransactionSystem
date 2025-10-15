@@ -1,6 +1,6 @@
-﻿using TransactionSystem.Api.Repositories.Models;
+﻿using TransactionSystem.DataAccess.Repositories.Models;
 
-namespace TransactionSystem.Api.Repositories
+namespace TransactionSystem.DataAccess.Repositories
 {
     /// <summary>
     /// Defines a contract for managing account data and performing account-related operations.
