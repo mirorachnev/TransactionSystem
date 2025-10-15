@@ -5,10 +5,12 @@ namespace TransactionSystem.Api.Repositories
     public class AccountsRepository : IAccountsRepository
     {
         private readonly IDictionary<string, AccountData> _accountsRepository;
-        
+        private readonly SemaphoreSlim _semaphoreSlim;  
+
         public AccountsRepository() 
         {
             _accountsRepository = new Dictionary<string, AccountData>();
+            _semaphoreSlim = new SemaphoreSlim(1, 1);
         }
 
         public async Task<bool> AddAccountAsync(AccountData account)
@@ -19,8 +21,7 @@ namespace TransactionSystem.Api.Repositories
         public async Task<bool> RemoveAccountAsync(string accountId)
         {
             return await Task.FromResult(_accountsRepository.Remove(accountId));
-        }
-               
+        }               
 
         public async Task<AccountData?> GetAccountByIdAsync(string accountId)
         {
@@ -43,8 +44,17 @@ namespace TransactionSystem.Api.Repositories
                 _accountsRepository.TryGetValue(toAccountId, out var toAccount) &&
                 fromAccount.Balance >= amount)
             {
-                fromAccount.Balance -= amount;
-                toAccount.Balance += amount;
+                await _semaphoreSlim.WaitAsync();
+                try
+                {  
+                    fromAccount.Balance -= amount;
+                    toAccount.Balance += amount;
+                }
+                finally
+                {
+                    _semaphoreSlim.Release();
+                }
+                    
                 return await Task.FromResult(true);
             }
 
@@ -55,7 +65,15 @@ namespace TransactionSystem.Api.Repositories
         {
             if (_accountsRepository.TryGetValue(accountId, out var accountData))
             {
-                accountData.Balance += amount;
+                await _semaphoreSlim.WaitAsync();
+                try
+                {
+                    accountData.Balance += amount;
+                }
+                finally
+                {
+                    _semaphoreSlim.Release();
+                }
                 return await Task.FromResult(true);
             }
 
@@ -69,7 +87,16 @@ namespace TransactionSystem.Api.Repositories
                 if (amount > accountData.Balance)
                     return await Task.FromResult(false);
 
-                accountData.Balance -= amount;
+                await _semaphoreSlim.WaitAsync();
+                try
+                {
+                    accountData.Balance -= amount;
+                }
+                finally
+                {
+                    _semaphoreSlim.Release();
+                }
+                
                 return await Task.FromResult(true);
             }
 
