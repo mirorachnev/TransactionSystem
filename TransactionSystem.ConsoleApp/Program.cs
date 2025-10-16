@@ -9,8 +9,6 @@ namespace TransactionSystem.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-
             var builder = Host.CreateApplicationBuilder(args);
 
             builder.Services.AddSingleton<IAccountsRepository, AccountsRepository>();
