@@ -15,3 +15,4 @@ Future improvements:
 4. Use logging.
 5. Use response pattern between layers and more detailed error handling and logging.
 6. Add integration tests with docker container.
+7. Improve validation.
