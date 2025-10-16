@@ -1,8 +1,28 @@
 ﻿
 
-Console.WriteLine("Hello, World!");
-do
+namespace TransactionSystem.Console;
+
+class Program
 {
-    Console.WriteLine("Press 9 to exit.");
+    static void Main(string[] args)
+    {
+        Console.
+        Console.WriteLine("Starting Transaction System Console Application...");
+        RunApplication();
+        Console.WriteLine("Exiting Transaction System Console Application...");
+    }
+    static void RunApplication()
+    {
+        // Placeholder for application logic
+
+        Console.WriteLine("Hello, World!");
+        do
+        {
+            Console.WriteLine("Press 9 to exit.");
+        }
+        while (Console.ReadKey().KeyChar != '9');
+    }
 }
-while (Console.ReadKey().KeyChar != '9');
+
+
+
