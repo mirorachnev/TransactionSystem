@@ -7,7 +7,7 @@ namespace TransactionSystem.ConsoleApp
 {
     internal class Program
     {
-        public async static Task Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
 
@@ -18,7 +18,6 @@ namespace TransactionSystem.ConsoleApp
             using var serviceProvider = builder.Services.BuildServiceProvider();
 
             var repositoryService = serviceProvider.GetRequiredService<IAccountsRepository>();
-
 
             do
             {
@@ -106,6 +105,11 @@ namespace TransactionSystem.ConsoleApp
         static void GetAllAccounts(IAccountsRepository repository)
         {
             var accounts = repository.GetAllAccountsAsync().Result;
+            if (!accounts.Any())
+            {
+                Console.WriteLine("No accounts found");
+                return;
+            }
             foreach (var account in accounts)
             {
                 Console.WriteLine($"Account id - {account.AccountId}, Name - {account.Name}, balance - {account.Balance}");
