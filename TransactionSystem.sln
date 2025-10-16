@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionSystem.DataAcces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionSystem.ConsoleApp", "TransactionSystem.ConsoleApp\TransactionSystem.ConsoleApp.csproj", "{B01907D1-A266-43DD-A48D-56B6AF4423CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionSystem.DataAccess.Tests.Unit", "TransactionSystem.DataAccess.Tests.Unit\TransactionSystem.DataAccess.Tests.Unit.csproj", "{248D471B-912F-4374-A66C-0DB69E6A1A9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B01907D1-A266-43DD-A48D-56B6AF4423CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B01907D1-A266-43DD-A48D-56B6AF4423CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B01907D1-A266-43DD-A48D-56B6AF4423CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248D471B-912F-4374-A66C-0DB69E6A1A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248D471B-912F-4374-A66C-0DB69E6A1A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248D471B-912F-4374-A66C-0DB69E6A1A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248D471B-912F-4374-A66C-0DB69E6A1A9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

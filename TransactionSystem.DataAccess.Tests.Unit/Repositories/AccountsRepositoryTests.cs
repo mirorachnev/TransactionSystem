@@ -2,7 +2,7 @@
 using TransactionSystem.DataAccess.Repositories;
 using TransactionSystem.DataAccess.Repositories.Models;
 
-namespace TransactionSystem.Api.Tests.Unit.Repositories
+namespace TransactionSystem.DataAccess.Tests.Unit.Repositories
 {
     public class AccountsRepositoryTests
     {
